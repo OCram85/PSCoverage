@@ -18,6 +18,8 @@ install:
 environment:
   NuGetToken:
     secure: 835qfZIkC9mE7QhkYfOZVAdR8rZhPvxG8BO4CbeaelRQOhlqmaSr8G1DWRJzZ/bS
+  CoverallsToken:
+    secure: nyiBjGDC07q/4OmKINxOfkwGPCywtNeGMmTzoSicmHMqOWycW8DZoJRagRTDEucc
 
 build: false
 
