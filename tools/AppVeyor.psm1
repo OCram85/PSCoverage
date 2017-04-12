@@ -1,3 +1,13 @@
+<#
+    Define the callsign of you PowerShell Module.
+    Callsign is used to identidy:
+    - Module Manifest file name
+    - Artifact File
+    - Git repository name
+    - Module name
+#>
+$CALLSIGN = 'PSCoverage'
+
 Function Invoke-AppVeyorBumpVersion() {
     [CmdletBinding()]
     Param()
@@ -7,10 +17,10 @@ Function Invoke-AppVeyorBumpVersion() {
     Get-ChildItem -Path "Env:*" | Where-Object { $_.name -notlike "NuGetToken"} | Sort-Object -Property Name | Format-Table
 
     Try {
-        $ModManifest = Get-Content -Path '.\src\PSCoverage.psd1'
+        $ModManifest = Get-Content -Path (".\src\{0}.psd1" -f $CALLSIGN)
         $BumpedManifest = $ModManifest -replace '\$Env:APPVEYOR_BUILD_VERSION', "'$Env:APPVEYOR_BUILD_VERSION'"
-        Remove-Item -Path '.\src\PSCoverage.psd1'
-        Out-File -FilePath '.\src\PSCoverage.psd1' -InputObject $BumpedManifest -NoClobber -Encoding utf8 -Force
+        Remove-Item -Path (".\src\{0}.psd1" -f $CALLSIGN)
+        Out-File -FilePath (".\src\{0}.psd1" -f $CALLSIGN) -InputObject $BumpedManifest -NoClobber -Encoding utf8 -Force
     }
     Catch {
         $MsgParams = @{
@@ -34,7 +44,7 @@ Function Invoke-AppVeyorBuild() {
     Add-AppveyorMessage @MsgParams
     $CompParams = @{
         Path = "{0}\src\*" -f $env:APPVEYOR_BUILD_FOLDER
-        DestinationPath = "{0}\bin\PSCoverage.zip" -f $env:APPVEYOR_BUILD_FOLDER
+        DestinationPath = "{0}\bin\{1}.zip" -f $env:APPVEYOR_BUILD_FOLDER, $CALLSIGN
         Update = $True
         Verbose = $True
     }
@@ -45,7 +55,7 @@ Function Invoke-AppVeyorBuild() {
         Details = 'Pushing artifacts to AppVeyor store.'
     }
     Add-AppveyorMessage @MsgParams
-    Push-AppveyorArtifact ".\bin\PSCoverage.zip"
+    Push-AppveyorArtifact (".\bin\{0}.zip" -f $CALLSIGN)
 }
 
 Function Invoke-AppVeyorTests() {
@@ -109,11 +119,11 @@ Function Invoke-AppVeyorTests() {
 
 }
 
-function Invoke-AppVeyorPSGallery() {
+Function Invoke-AppVeyorPSGallery() {
     [CmdletBinding()]
     Param()
-    Expand-Archive -Path '.\bin\PSCoverage.zip' -DestinationPath 'C:\Users\appveyor\Documents\WindowsPowerShell\Modules\PSCoverage\' -Verbose
-    Import-Module -Name 'PSCoverage' -Verbose -Force
+    Expand-Archive -Path (".\bin\{0}.zip" -f $CALLSIGN) -DestinationPath ("C:\Users\appveyor\Documents\WindowsPowerShell\Modules\{0}\" -f $CALLSIGN) -Verbose
+    Import-Module -Name $CALLSIGN -Verbose -Force
     Write-Host "Available Package Provider:" -ForegroundColor Yellow
     Get-PackageProvider -ListAvailable
     Write-Host "Available Package Sources:" -ForegroundColor Yellow
@@ -130,12 +140,12 @@ function Invoke-AppVeyorPSGallery() {
     Try {
         If ($env:APPVEYOR_REPO_BRANCH -eq 'master') {
             Write-Host "try to publish module" -ForegroundColor Yellow
-            Publish-Module -Name 'PSCoverage' -NuGetApiKey $env:NuGetToken -Verbose -Force
+            Publish-Module -Name $CALLSIGN -NuGetApiKey $env:NuGetToken -Verbose -Force
         }
         Else {
             Write-Host "Skip publishing to PS Gallery because we are on $($env:APPVEYOR_REPO_BRANCH) branch." -ForegroundColor Yellow
             # had to remve the publish-Module statement bacause it would publish although the -WhatIf is given.
-            # Publish-Module -Name 'PSCoverage' -NuGetApiKey $env:NuGetToken -Verbose -WhatIf
+            # Publish-Module -Name $CALLSIGN -NuGetApiKey $env:NuGetToken -Verbose -WhatIf
         }
     }
     Catch {
