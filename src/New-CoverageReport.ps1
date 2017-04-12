@@ -1,17 +1,60 @@
 Function New-CoverageReport () {
+     <#
+    .SYNOPSIS
+         Creates a new coverage report based on the given PesterFileMap.
+
+    .DESCRIPTION
+        New-CoverageReport runs all Pester tests listet in the PesterFileMap. Source files without pester test will
+        be marked as uncovered.
+        It returns a coveralls.io REST API compatible Object. To upload the coverage report use
+        Publish-CoverageReport.
+
+    .PARAMETER PesterFileMap
+        You need to provide a PesterFileMap created with New-PesterFileMap.
+
+    .PARAMETER RepoToken
+        Coveralls.io provides RepoTokens for grant access to the api upload mehtods. Therefore take a look at the
+        repository page like: https://coveralls.io/github/<Github UserName>/<Repo Name>.
+
+    .PARAMETER ModuleRoot
+        New-CoverageReport uses relative file paths of the module. If you run New-CoverageReport not from
+        the root directory of your module you need to provice the ModuleRoot path. This pattern is used to cut from
+        the full file names to create the realive path.
+
+    .INPUTS
+        [None]
+
+    .OUTPUTS
+        [Hashtable]
+
+    .EXAMPLE
+        # Set location to your module root
+        $FileMap = New-PesterFileMap -SourceRoot '.\src'-PesterRoot '.\tests'
+        $CoverageReport = New-CoverageReport -PesterFileMap $FileMap -RepoToken 'ABCD1234'
+        Publish-CoverageReport -CoverageReport $CoverageReport
+
+    .NOTES
+        File Name   : New-CoverageReport.ps1
+        Author      : Marco Blessing - marco.blessing@googlemail.com
+        Requires    :
+
+    .LINK
+        https://github.com/OCram85/PSCoverage
+    #>
+
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]
         [ValidateNotNullOrEmpty()]
-        [Hashtable]$PesterMap,
-        
+        [Hashtable]$PesterFileMap,
+
         [Parameter(Mandatory=$True)]
         [ValidateNotNullOrEmpty()]
         [String]$RepoToken,
-        
+
         [Parameter(Mandatory=$False)]
         [ValidateNotNullOrEmpty()]
-        [String]$ModuleRoot = $(Get-Location) 
+        [String]$ModuleRoot = $(Get-Location)
     )
     BEGIN {
         $CoverReport = [PSCustomObject]@{
@@ -24,7 +67,7 @@ Function New-CoverageReport () {
     }
 
     PROCESS {
-        ForEach ($Item in $PesterMap.GetEnumerator() | Where-Object {$_.Value.Length -gt 0} ) {
+        ForEach ($Item in $PesterFileMap.GetEnumerator() | Where-Object {$_.Value.Length -gt 0} ) {
             $Pest = Invoke-Pester -Script $Item.Value -CodeCoverage $Item.Name -PassThru -Quiet
 
             $Lines = (Get-Content -Path $Item.Name | Measure-Object).Count
@@ -60,6 +103,7 @@ Function New-CoverageReport () {
             }
             $CoverReport.source_files += $CoverageSourceFile
         }
+        # TODO: Generate coverage report for source files without pester tests
     }
 
     END {
