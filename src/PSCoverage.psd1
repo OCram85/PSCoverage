@@ -9,7 +9,7 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-# RootModule = ''
+RootModule = 'PSCoverage.psm1'
 
 # Version number of this module.
 ModuleVersion = $Env:APPVEYOR_BUILD_VERSION
@@ -59,7 +59,9 @@ RequiredModules = @(
 # RequiredAssemblies = @()
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
-# ScriptsToProcess = @()
+ScriptsToProcess = @(
+    '.\Init\Test-Requirements.ps1'
+)
 
 # Type files (.ps1xml) to be loaded when importing this module
 # TypesToProcess = @()
@@ -71,7 +73,11 @@ RequiredModules = @(
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @()
+FunctionsToExport = @(
+    'New-PesterFileMap',
+    'New-CoverageReport',
+    'Publish-CoverageReport'
+)
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -101,7 +107,8 @@ PrivateData = @{
         # Tags applied to this module. These help with module discovery in online galleries.
         Tags = @(
             'coverage',
-            'coveralls.io'
+            'coveralls.io',
+            'codecoverage'
         )
 
         # A URL to the license for this module.
