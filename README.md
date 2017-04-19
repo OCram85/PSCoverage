@@ -4,7 +4,7 @@ General
 PSCoverage is an interface for coveralls.io. It enables you to run your known pester tests and its coverage report.
 Furthermore it formats the coverage report and uploads it to coveralls.io.
 
-To get started read the [about_PSCoverage] (/src/en-US/about_PSCoverage.help.txt) page.
+To get started read the [about_PSCoverage](/src/en-US/about_PSCoverage.help.txt) page.
 
 Installation
 ============
@@ -29,6 +29,6 @@ Manual Way
 Build Details
 =============
 
-* Overall: [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage)
-* Master Branch: [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/master?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/master)
-* Dev Branch: [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/dev?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/dev)
+| AppVeyor Overall | AppVeyor Master | AppVeyor Dev | Coveralls.io  | Download |
+| ---------------- | --------------- | ------------ | ------------- | ----------|
+| [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage) | [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/master?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/dev?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/dev) | [![Coverage Status](https://coveralls.io/repos/github/OCram85/PSCoverage/badge.svg?branch=master)](https://coveralls.io/github/OCram85/PSCoverage?branch=master) | [![Download](https://img.shields.io/badge/powershellgallery.com-PSCoverage-blue.svg)](https://www.powershellgallery.com/packages/PSCoverage)
