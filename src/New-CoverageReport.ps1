@@ -103,7 +103,22 @@ Function New-CoverageReport () {
             }
             $CoverReport.source_files += $CoverageSourceFile
         }
-        # TODO: Generate coverage report for source files without pester tests
+        ForEach ($Item in $PesterFileMap.GetEnumerator() | Where-Object {$_.Value.Length -eq 0} ) {
+            $Lines = (Get-Content -Path $Item.Name | Measure-Object).Count
+            $CoverageArray = @()
+            For ($LinePointer = 1; $LinePointer -le $Lines; $LinePointer++) {
+                $CoverageArray += '0'
+            }
+            $CoverageSourceFile = [PSCustomObject]@{
+                name = $Item.Name.Replace($ModuleRoot,'').Replace('\','/')
+                source_digest = (Get-FileHash -Path $Item.Name -Algorithm MD5).Hash
+                coverage = $CoverageArray
+            }
+            If ($CoverageSourceFile.Name.StartsWith('/')) {
+                $CoverageSourceFile.Name = $CoverageSourceFile.Name.Remove(0,1)
+            }
+            $CoverReport.source_files += $CoverageSourceFile
+        }
     }
 
     END {
