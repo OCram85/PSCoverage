@@ -7,6 +7,7 @@
     - Module name
 #>
 $CALLSIGN = 'PSCoverage'
+Write-Host ("Callsign is: {0}" -f $CALLSIGN) -ForegroundColor Yellow
 
 Function Invoke-AppVeyorBumpVersion() {
     [CmdletBinding()]
@@ -140,6 +141,7 @@ Function Invoke-AppVeyorPSGallery() {
     Try {
         If ($env:APPVEYOR_REPO_BRANCH -eq 'master') {
             Write-Host "try to publish module" -ForegroundColor Yellow
+            Write-Host ("Callsign is: {0}" -f $CALLSIGN) -ForegroundColor Yellow
             Publish-Module -Name $CALLSIGN -NuGetApiKey $env:NuGetToken -Verbose -Force
         }
         Else {
