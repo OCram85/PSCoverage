@@ -1,6 +1,6 @@
 <#
     Define the callsign of you PowerShell Module.
-    Callsign is used to identidy:
+    Callsign is used to identity:
     - Module Manifest file name
     - Artifact File
     - Git repository name
@@ -39,7 +39,7 @@ Function Invoke-AppVeyorBuild() {
     $MsgParams = @{
         Message = 'Creating build artifacts'
         Category = 'Information'
-        Details = 'Extracting srouce files and compressing them into zip file.'
+        Details = 'Extracting source files and compressing them into zip file.'
     }
     Add-AppveyorMessage @MsgParams
     $CompParams = @{
@@ -144,13 +144,13 @@ Function Invoke-AppVeyorPSGallery() {
         }
         Else {
             Write-Host "Skip publishing to PS Gallery because we are on $($env:APPVEYOR_REPO_BRANCH) branch." -ForegroundColor Yellow
-            # had to remve the publish-Module statement bacause it would publish although the -WhatIf is given.
+            # had to remove the publish-Module statement because it would publish although the -WhatIf is given.
             # Publish-Module -Name $CALLSIGN -NuGetApiKey $env:NuGetToken -Verbose -WhatIf
         }
     }
     Catch {
         $MsgParams = @{
-            Message = 'Could not delpoy module to PSGallery.'
+            Message = 'Could not deploy module to PSGallery.'
             Category = 'Error'
             Details = $_.Exception.Message
         }

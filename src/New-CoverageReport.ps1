@@ -4,7 +4,7 @@ Function New-CoverageReport () {
          Creates a new coverage report based on the given PesterFileMap.
 
     .DESCRIPTION
-        New-CoverageReport runs all Pester tests listet in the PesterFileMap. Source files without pester test will
+        New-CoverageReport runs all Pester tests listed in the PesterFileMap. Source files without pester test will
         be marked as uncovered.
         It returns a coveralls.io REST API compatible Object. To upload the coverage report use
         Publish-CoverageReport.
@@ -13,13 +13,13 @@ Function New-CoverageReport () {
         You need to provide a PesterFileMap created with New-PesterFileMap.
 
     .PARAMETER RepoToken
-        Coveralls.io provides RepoTokens for grant access to the api upload mehtods. Therefore take a look at the
+        Coveralls.io provides RepoTokens for grant access to the api upload methods. Therefore take a look at the
         repository page like: https://coveralls.io/github/<Github UserName>/<Repo Name>.
 
     .PARAMETER ModuleRoot
         New-CoverageReport uses relative file paths of the module. If you run New-CoverageReport not from
-        the root directory of your module you need to provice the ModuleRoot path. This pattern is used to cut from
-        the full file names to create the realive path.
+        the root directory of your module you need to provide the ModuleRoot path. This pattern is used to cut from
+        the full file names to create the relative path.
 
     .INPUTS
         [None]

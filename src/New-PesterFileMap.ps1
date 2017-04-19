@@ -7,7 +7,7 @@ Function New-PesterFileMap () {
         Pester Coverage function needs a 1:1 relationship between the source file and pester test file.
         Therefore we need this  map to iterate through via Pester.
 
-        You need to sperate your source and pester files in the module. Best practice ist to seperate them in the
+        You need to separate your source and pester files in the module. Best practice ist to separate them in the
         Root level.
         Eg.:
         ~\src\
@@ -17,7 +17,7 @@ Function New-PesterFileMap () {
               External\
         ~\tests\
                 Private\
-                        Invoko-Foobar.Tests.ps1
+                        Invoke-Foobar.Tests.ps1
                 Functions\
                 External\
          \ModuleManifest.psd1
