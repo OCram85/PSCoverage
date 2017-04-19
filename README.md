@@ -1,3 +1,7 @@
+| AppVeyor Overall | AppVeyor Master | AppVeyor Dev | Coveralls.io  | Download |
+| :--------------: | :-------------: | :----------: | :-----------: | :--------:|
+| [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage) | [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/master?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/dev?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/dev) | [![Coverage Status](https://coveralls.io/repos/github/OCram85/PSCoverage/badge.svg?branch=master)](https://coveralls.io/github/OCram85/PSCoverage?branch=master) | [![Download](https://img.shields.io/badge/powershellgallery.com-PSCoverage-blue.svg)](https://www.powershellgallery.com/packages/PSCoverage)
+
 General
 =======
 
@@ -25,10 +29,3 @@ Manual Way
 * Unpack the Zip and put it in your Powershell Module path.
   * Don't forget to change the NTFS permission flag in the context menu.
 * Start with `Import-Module PSCoverage`
-
-Build Details
-=============
-
-| AppVeyor Overall | AppVeyor Master | AppVeyor Dev | Coveralls.io  | Download |
-| :--------------: | :-------------: | :----------: | :-----------: | :--------:|
-| [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage) | [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/master?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/dev?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/dev) | [![Coverage Status](https://coveralls.io/repos/github/OCram85/PSCoverage/badge.svg?branch=master)](https://coveralls.io/github/OCram85/PSCoverage?branch=master) | [![Download](https://img.shields.io/badge/powershellgallery.com-PSCoverage-blue.svg)](https://www.powershellgallery.com/packages/PSCoverage)
