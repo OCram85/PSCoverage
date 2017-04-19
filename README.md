@@ -6,14 +6,25 @@ Furthermore it formats the coverage report and uploads it to coveralls.io.
 
 To get started read the [about_PSCoverage] (/src/en-US/about_PSCoverage.help.txt) page.
 
-Get The Latest Release
-======================
+Installation
+============
 
-* Take a look at the [Latest Release] (https://github.com/OCram85/Ponduit/releases/latest) page.
-* Download the `Ponduit.zip`.
+
+PowerShellGallery.com (Recommended Way)
+---------------------------------------
+
+* Make sure you use PowerShell 5.0 or higher with `$PSVersionTable`.
+* Use the builtin PackageManagement and install with: `Install-Module PSCoverage`
+* Done. Start exploring the Module with `Import-Module PSCoverage ; Get-Command -Module PSCoverage`
+
+Manual Way
+----------
+
+* Take a look at the [Latest Release] (https://github.com/OCram85/PSCoverage/releases/latest) page.
+* Download the `PSCoverage.zip`.
 * Unpack the Zip and put it in your Powershell Module path.
-  * Don't forget to change the NTFS Permission flag in the context menu.
-* Start with `Import-Module Ponduit`
+  * Don't forget to change the NTFS permission flag in the context menu.
+* Start with `Import-Module PSCoverage`
 
 Build Details
 =============
