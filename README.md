@@ -24,7 +24,7 @@ PowerShellGallery.com (Recommended Way)
 Manual Way
 ----------
 
-* Take a look at the [Latest Release] (https://github.com/OCram85/PSCoverage/releases/latest) page.
+* Take a look at the [Latest Release](https://github.com/OCram85/PSCoverage/releases/latest) page.
 * Download the `PSCoverage.zip`.
 * Unpack the Zip and put it in your Powershell Module path.
   * Don't forget to change the NTFS permission flag in the context menu.
