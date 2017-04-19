@@ -17,7 +17,7 @@ INSTALLING PSCoverage
 GETTING STARTED
         # TODO:
         # - New-PesterFileMap
-        # - New-CoverageReport 
+        # - New-CoverageReport
         # - Publish-CoverageReport
 
 SEE ALSO
