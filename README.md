@@ -29,3 +29,42 @@ Manual Way
 * Unpack the Zip and put it in your Powershell Module path.
   * Don't forget to change the NTFS permission flag in the context menu.
 * Start with `Import-Module PSCoverage`
+
+Usage
+-----
+
+Navigate to your module/ repository root. Your module structure needs to be like this:
+```
+Eg.:
+----------------------------------------
+~\src\
+      Private\
+              Invoke-Foobar.ps1
+      Functions\
+      External\
+~\tests\
+        Private\
+                Invoke-Foobar.Tests.ps1
+        Functions\
+        External\
+~\ModuleManifest.psd1
+~\ModuleScript.psm1
+----------------------------------------
+```
+
+**1.** First you need a file map for source and pester files. You generate a new with:
+```powershell
+$FileMap = New-PesterFileMap -SourceRoot '.\src' -PesterRoot '.\tests'
+```
+_The map represents a listing of each source file and its pester file._
+
+**2.** Next you generate your coverage report:
+```powershell
+$CoverageReport = New-CoverageReport -PesterFileMap $FileMap -RepoToken 'abcd1234'
+```
+_This runs Invoke-Pester with the appropriate parameters. Keep in mind that you run your unit tests again, if you put PSCoverage in your release pipeline._
+
+**3.** Finally we can upload the coverage report to coveralls.io :
+```powershell
+Publish-CoverageReport -CoverageReport $CoverageReport
+```
