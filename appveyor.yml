@@ -12,7 +12,9 @@ image: WMF 5
 
 # Install pester module and init the Appveyor support.
 install:
-  - cinst pester
+  - ps: Install-PackageProvider -Name NuGet -MinimumVersion '2.8.5.201' -Force -Verbose
+  - ps: Import-PackageProvider NuGet -MinimumVersion '2.8.5.201' -Force
+  - ps: Install-Module -Name 'Pester' -Scope CurrentUser -Force -SkipPublisherCheck -AllowClobber
   - ps: Import-Module .\tools\AppVeyor.psm1
 
 environment:
