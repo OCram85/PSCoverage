@@ -15,7 +15,7 @@ Function Invoke-AppVeyorBumpVersion() {
 
     Write-Host "Listing Env Vars for debugging:" -ForegroundColor Yellow
     # Filter Results to prevent exposing secure vars.
-    Get-ChildItem -Path "Env:*" | Where-Object { $_.name -notlike "(NuGetToken|CoverallsToken)"} | Sort-Object -Property Name | Format-Table
+    Get-ChildItem -Path "Env:*" | Where-Object { $_.name -notmatch "(NuGetToken|CoverallsToken)"} | Sort-Object -Property Name | Format-Table
 
     Try {
         $ModManifest = Get-Content -Path (".\src\{0}.psd1" -f $CALLSIGN)
