@@ -76,8 +76,8 @@ Function New-CoverageReport () {
             $Missed = 0
 
             For ($LinePointer = 1; $LinePointer -le $Lines; $LinePointer++) {
-                $Hits = ($Pest.CodeCoverage.HitCommands | Where-Object {$_.Line -eq $LinePointer} | Measure-Object).Count
-                $Missed = ($Pest.CodeCoverage.MissedCommands | Where-Object {$_.Line -eq $LinePointer} | Measure-Object).Count
+                [Int]$Hits = ($Pest.CodeCoverage.HitCommands | Where-Object {$_.Line -eq $LinePointer} | Measure-Object).Count
+                [Int]$Missed = ($Pest.CodeCoverage.MissedCommands | Where-Object {$_.Line -eq $LinePointer} | Measure-Object).Count
                 Write-Verbose ("Line: {0} | Hits: {1} | Missed: {2}" -f $LinePointer, $Hits, $Missed)
                 If ((-not $Hits -gt 0) -and (-not $Missed -gt 0)) {
                     $CoverageArray += 'null'
@@ -93,6 +93,8 @@ Function New-CoverageReport () {
                     }
                 }
             }
+            # Get rid of the quotation
+            $CoverageArray =  $CoverageArray -Replace '"',''
             $CoverageSourceFile = [PSCustomObject]@{
                 name = $Item.Name.Replace($ModuleRoot,'').Replace('\','/')
                 source_digest = (Get-FileHash -Path $Item.Name -Algorithm MD5).Hash

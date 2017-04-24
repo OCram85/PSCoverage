@@ -18,6 +18,8 @@ install:
   - ps: Import-PackageProvider NuGet -MinimumVersion '2.8.5.201' -Force
   - ps: Install-Module -Name 'Pester' -Scope CurrentUser -Force -SkipPublisherCheck -AllowClobber
   - ps: Update-Module 'Pester'
+  - ps: Install-Module -Name 'posh-git' -Scope CurrentUser -Force -SkipPublisherCheck -AllowClobber
+  - ps: Update-Module 'posh-git'
   - ps: Import-Module .\tools\AppVeyor.psm1
 
 environment:
