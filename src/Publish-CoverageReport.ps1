@@ -40,7 +40,10 @@ Function Publish-CoverageReport () {
     }
 
     PROCESS {
-        $stringContent = New-Object System.Net.Http.StringContent (ConvertTo-Json $CoverageReport -Depth 3)
+        $CoverageJSON = ConvertTo-Json $CoverageReport -Depth 3
+        # Try to fix null elements in coverage array.
+        $CoverageJSON = $CoverageJSON.Replace('"null"', 'null')
+        $stringContent = New-Object System.Net.Http.StringContent ($CoverageJSON)
         $httpClient = New-Object System.Net.Http.Httpclient
         $formdata = New-Object System.Net.Http.MultipartFormDataContent
         $formData.Add($stringContent, "json_file", "coverage.json")
