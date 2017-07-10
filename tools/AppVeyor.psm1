@@ -64,12 +64,12 @@ Function Invoke-AppVeyorTests() {
     Param()
 
     $MsgParams = @{
-            Message = 'Starting Pester tests'
-            Category = 'Information'
-            Details = 'Now running all test found in .\tests\ dir.'
-        }
+        Message = 'Starting Pester tests'
+        Category = 'Information'
+        Details = 'Now running all test found in .\tests\ dir.'
+    }
     Add-AppveyorMessage @MsgParams
-    $testresults = Invoke-Pester -Path ".\tests\*" -PassThru
+    $testresults = Invoke-Pester -Path ".\tests\*" -ExcludeTag 'Disabled' -PassThru
     ForEach ($Item in $testresults.TestResult) {
         Switch ($Item.Result) {
             "Passed" {
@@ -78,7 +78,7 @@ Function Invoke-AppVeyorTests() {
                     Framework = "NUnit"
                     Filename = $Item.Describe
                     Outcome = "Passed"
-                    Duration =$Item.Time.Milliseconds
+                    Duration = $Item.Time.Milliseconds
                 }
                 Add-AppveyorTest @TestParams
             }
@@ -88,8 +88,8 @@ Function Invoke-AppVeyorTests() {
                     Framework = "NUnit"
                     Filename = $Item.Describe
                     Outcome = "Failed"
-                    Duration =$Item.Time.Milliseconds
-                    ErrorMessage= $Item.FailureMessage
+                    Duration = $Item.Time.Milliseconds
+                    ErrorMessage = $Item.FailureMessage
                     ErrorStackTrace = $Item.StackTrace
                 }
                 Add-AppveyorTest @TestParams
@@ -100,8 +100,8 @@ Function Invoke-AppVeyorTests() {
                     Framework = "NUnit"
                     Filename = $Item.Describe
                     Outcome = "None"
-                    Duration =$Item.Time.Milliseconds
-                    ErrorMessage= $Item.FailureMessage
+                    Duration = $Item.Time.Milliseconds
+                    ErrorMessage = $Item.FailureMessage
                     ErrorStackTrace = $Item.StackTrace
                 }
                 Add-AppveyorTest @TestParams
@@ -118,6 +118,22 @@ Function Invoke-AppVeyorTests() {
         Throw $MsgParams.Message
     }
 
+}
+
+Function Invoke-CoverageReport() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory = $False)]
+        [ValidateNotNullOrEmpty()]
+        [String]$RepoToken = $Env:CoverallsToken
+    )
+
+    Import-Module '.\src\PSCoverage.psm1' -Verbose -Force
+    $FileMap = New-PesterFileMap -SourceRoot '.\src' -PesterRoot '.\tests'
+    $CoverageReport = New-CoverageReport -PesterFileMap $FileMap -RepoToken $RepoToken
+    Write-Host "CoverageReport JSON:" -ForegroundColor Yellow
+    $CoverageReport | Out-String | Write-Host
+    Publish-CoverageReport -CoverageReport $CoverageReport
 }
 
 Function Invoke-AppVeyorPSGallery() {

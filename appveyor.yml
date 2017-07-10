@@ -26,7 +26,7 @@ environment:
   NuGetToken:
     secure: 835qfZIkC9mE7QhkYfOZVAdR8rZhPvxG8BO4CbeaelRQOhlqmaSr8G1DWRJzZ/bS
   CoverallsToken:
-    secure: nyiBjGDC07q/4OmKINxOfkwGPCywtNeGMmTzoSicmHMqOWycW8DZoJRagRTDEucc
+    secure: LQIBuPBCk/omFbFhdodb3xo/YU5M4Qd/nlYcBCVUmt9NNU1VJB2IbR8XgJ5b9kMZ
 
 build: false
 
@@ -38,6 +38,7 @@ build_script:
 
 test_script:
   - ps: Invoke-AppVeyorTests
+  - ps: Invoke-CoverageReport
 
 deploy:
   - provider: GitHub

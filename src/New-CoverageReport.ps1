@@ -1,5 +1,5 @@
 Function New-CoverageReport () {
-     <#
+    <#
     .SYNOPSIS
          Creates a new coverage report based on the given PesterFileMap.
 
@@ -44,15 +44,15 @@ Function New-CoverageReport () {
 
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$True)]
+        [Parameter(Mandatory = $True)]
         [ValidateNotNullOrEmpty()]
         [Hashtable]$PesterFileMap,
 
-        [Parameter(Mandatory=$True)]
+        [Parameter(Mandatory = $True)]
         [ValidateNotNullOrEmpty()]
         [String]$RepoToken,
 
-        [Parameter(Mandatory=$False)]
+        [Parameter(Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
         [String]$ModuleRoot = $(Get-Location)
     )
@@ -68,7 +68,7 @@ Function New-CoverageReport () {
 
     PROCESS {
         ForEach ($Item in $PesterFileMap.GetEnumerator() | Where-Object {$_.Value.Length -gt 0} ) {
-            $Pest = Invoke-Pester -Script $Item.Value -CodeCoverage $Item.Name -PassThru -Quiet
+            $Pest = Invoke-Pester -Script $Item.Value -CodeCoverage $Item.Name -PassThru -Show None -ExcludeTag 'Disabled'
 
             $Lines = (Get-Content -Path $Item.Name | Measure-Object).Count
             $CoverageArray = @()
@@ -88,20 +88,20 @@ Function New-CoverageReport () {
                     }
                     Else {
                         If ($Missed -gt 0) {
-                            $CoverageArray += $Missed
+                            $CoverageArray += 0
                         }
                     }
                 }
             }
             # Get rid of the quotation
-            $CoverageArray =  $CoverageArray -Replace '"',''
+            $CoverageArray = $CoverageArray -Replace '"', ''
             $CoverageSourceFile = [PSCustomObject]@{
-                name = $Item.Name.Replace($ModuleRoot,'').Replace('\','/')
+                name = $Item.Name.Replace($ModuleRoot, '').Replace('\', '/')
                 source_digest = (Get-FileHash -Path $Item.Name -Algorithm MD5).Hash
                 coverage = $CoverageArray
             }
             If ($CoverageSourceFile.Name.StartsWith('/')) {
-                $CoverageSourceFile.Name = $CoverageSourceFile.Name.Remove(0,1)
+                $CoverageSourceFile.Name = $CoverageSourceFile.Name.Remove(0, 1)
             }
             $CoverReport.source_files += $CoverageSourceFile
         }
@@ -112,12 +112,12 @@ Function New-CoverageReport () {
                 $CoverageArray += '0'
             }
             $CoverageSourceFile = [PSCustomObject]@{
-                name = $Item.Name.Replace($ModuleRoot,'').Replace('\','/')
+                name = $Item.Name.Replace($ModuleRoot, '').Replace('\', '/')
                 source_digest = (Get-FileHash -Path $Item.Name -Algorithm MD5).Hash
                 coverage = $CoverageArray
             }
             If ($CoverageSourceFile.Name.StartsWith('/')) {
-                $CoverageSourceFile.Name = $CoverageSourceFile.Name.Remove(0,1)
+                $CoverageSourceFile.Name = $CoverageSourceFile.Name.Remove(0, 1)
             }
             $CoverReport.source_files += $CoverageSourceFile
         }
