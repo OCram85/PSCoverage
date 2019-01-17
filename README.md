@@ -52,19 +52,33 @@ Eg.:
 ----------------------------------------
 ```
 
-**1.** First you need a file map for source and pester files. You generate a new with:
-```powershell
-$FileMap = New-PesterFileMap -SourceRoot '.\src' -PesterRoot '.\tests'
-```
-_The map represents a listing of each source file and its pester file._
+**1.** First you need a list of all your src files:
 
-**2.** Next you generate your coverage report:
-```powershell
-$CoverageReport = New-CoverageReport -PesterFileMap $FileMap -RepoToken 'abcd1234'
 ```
-_This runs Invoke-Pester with the appropriate parameters. Keep in mind that you run your unit tests again, if you put PSCoverage in your release pipeline._
+$srcFiles = Get-ChildItem -Path ".\src\*.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
+```
 
-**3.** Finally we can upload the coverage report to coveralls.io :
-```powershell
-Publish-CoverageReport -CoverageReport $CoverageReport
+**2.** Next you need a list with all your pester tests files:
+
+```
+$testFiles = Get-ChildItem -Path ".\tests\*.Tests.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
+```
+
+**3.** The simplest way to get you code coverage is by creating it with your unit tests. This avoids rerunning all
+the test with PSCoverage:
+
+```
+$TestResults = Invoke-Pester -Path $testFiles -CodeCoverage $srcFiles -PassThru
+```
+
+**4.** And then passthru the code coverage to create a new report:
+
+```
+$CoverallsIOReport = New-CoverageReport -CodeCoverage $TestResults.CodeCoverage -RepoToken '123456' -ModuleRoot $PWD
+```
+
+**5.** Finally we can upload the coverage report to coveralls.io:
+
+```
+Publish-CoverageReport -CoverageReport $CoverallsIOReport
 ```
