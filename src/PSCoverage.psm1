@@ -1,4 +1,4 @@
-function Get-GitInfo () {
+function Get-GitInfo {
     [CmdletBinding()]
     param(
         [string]$BranchName
@@ -39,7 +39,7 @@ function Get-GitInfo () {
     }
 }
 
-Function New-CoverageReport () {
+function New-CoverageReport {
     <#
     .SYNOPSIS
         Creates a CoverallsIO coverage report based on pester data
@@ -202,34 +202,6 @@ Function New-CoverageReport () {
 
     end {
         Write-Output $CoverReport
-    }
-}
-
-function Publish-CoverageReport () {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory = $True)]
-        [ValidateNotNullOrEmpty()]
-        [PSCustomObject]$CoverageReport
-    )
-    begin {
-        Add-Type -AssemblyName System.Net.Http
-    }
-
-    process {
-        $CoverageJSON = ConvertTo-Json $CoverageReport -Depth 5
-        # Try to fix null elements in coverage array.
-        $CoverageJSON = $CoverageJSON.Replace('"null"', 'null')
-        $stringContent = New-Object System.Net.Http.StringContent ($CoverageJSON)
-        $httpClient = New-Object System.Net.Http.Httpclient
-        $formdata = New-Object System.Net.Http.MultipartFormDataContent
-        $formData.Add($stringContent, "json_file", "coverage.json")
-        $result = $httpClient.PostAsync('https://coveralls.io/api/v1/jobs', $formData).Result
-        $content = $result.Content.ReadAsStringAsync()
-    }
-
-    end {
-        Write-Output $Content
     }
 }
 
