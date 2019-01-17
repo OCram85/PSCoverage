@@ -76,7 +76,7 @@
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @(
         'New-CoverageReport',
-        'Publish-CoverageReport',
+        'Publish-CoverageReport'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -122,7 +122,7 @@
             # ReleaseNotes = ''
 
             # Prerelease string of this module
-            Prerelease   = 'alpha1'
+            Prerelease = 'alpha1'
 
             # Flag to indicate whether the module requires explicit user acceptance for install/update
             # RequireLicenseAcceptance = $false
