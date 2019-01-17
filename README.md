@@ -1,6 +1,11 @@
-| AppVeyor Overall | AppVeyor Master | AppVeyor Dev | Coveralls.io  | Download |
-| :--------------: | :-------------: | :----------: | :-----------: | :--------:|
-| [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage) | [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/master?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/dev?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/dev) | [![Coverage Status](https://coveralls.io/repos/github/OCram85/PSCoverage/badge.svg?branch=master)](https://coveralls.io/github/OCram85/PSCoverage?branch=master) | [![Download](https://img.shields.io/badge/powershellgallery-PSCoverage-blue.svg)](https://www.powershellgallery.com/packages/PSCoverage)
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/OCram85/PSCoverage/master.svg?style=plastic "Master Branch Build Status")](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/master)
+[![AppVeyor tests branch](https://img.shields.io/appveyor/tests/OCram85/PSCoverage/master.svg?style=plastic "Pester Tests Results")](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/master/tests)
+[![Coveralls github](https://img.shields.io/coveralls/github/OCram85/PSCoverage.svg?style=plastic "Coveralls.io Coverage Report")](https://coveralls.io/github/OCram85/PSCoverage?branch=master)
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/v/PSCoverage.svg?style=plastic "PowershellGallery Published Version")](https://www.powershellgallery.com/packages/PSCoverage)
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PSCoverage.svg?style=plastic "PowershellGallery Downloads")](https://www.powershellgallery.com/packages/PSCoverage)
+
+![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)
+![forthebadge](http://forthebadge.com/images/badges/for-you.svg)
 
 General
 =======
@@ -18,7 +23,7 @@ PowerShellGallery.com (Recommended Way)
 ---------------------------------------
 
 * Make sure you use PowerShell 5.0 or higher with `$PSVersionTable`.
-* Use the builtin PackageManagement and install with: `Install-Module PSCoverage`
+* Use the builtin PackageManagement and install with: `Install-Module PSCoverage -AllowPrerelease`
 * Done. Start exploring the Module with `Import-Module PSCoverage ; Get-Command -Module PSCoverage`
 
 Manual Way
@@ -34,9 +39,8 @@ Usage
 -----
 
 Navigate to your module/ repository root. Your module structure needs to be like this:
-```
-Eg.:
-----------------------------------------
+
+```console
 ~\src\
       Private\
               Invoke-Foobar.ps1
@@ -49,22 +53,35 @@ Eg.:
         External\
 ~\ModuleManifest.psd1
 ~\ModuleScript.psm1
-----------------------------------------
 ```
 
-**1.** First you need a file map for source and pester files. You generate a new with:
-```powershell
-$FileMap = New-PesterFileMap -SourceRoot '.\src' -PesterRoot '.\tests'
-```
-_The map represents a listing of each source file and its pester file._
+**1.** First you need a list of all your src files:
 
-**2.** Next you generate your coverage report:
 ```powershell
-$CoverageReport = New-CoverageReport -PesterFileMap $FileMap -RepoToken 'abcd1234'
+$srcFiles = Get-ChildItem -Path ".\src\*.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
 ```
-_This runs Invoke-Pester with the appropriate parameters. Keep in mind that you run your unit tests again, if you put PSCoverage in your release pipeline._
 
-**3.** Finally we can upload the coverage report to coveralls.io :
+**2.** Next you need a list with all your pester tests files:
+
 ```powershell
-Publish-CoverageReport -CoverageReport $CoverageReport
+$testFiles = Get-ChildItem -Path ".\tests\*.Tests.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
+```
+
+**3.** The simplest way to get you code coverage is by creating it with your unit tests. This avoids rerunning all
+the test with PSCoverage:
+
+```powershell
+$TestResults = Invoke-Pester -Path $testFiles -CodeCoverage $srcFiles -PassThru
+```
+
+**4.** And then passthru the code coverage to create a new report:
+
+```powershell
+$CoverallsIOReport = New-CoverageReport -CodeCoverage $TestResults.CodeCoverage -RepoToken '123456' -ModuleRoot $PWD
+```
+
+**5.** Finally we can upload the coverage report to coveralls.io:
+
+```powershell
+Publish-CoverageReport -CoverageReport $CoverallsIOReport
 ```

@@ -19,7 +19,7 @@ Function Invoke-AppVeyorBumpVersion() {
 
     Try {
         $ModManifest = Get-Content -Path (".\src\{0}.psd1" -f $CALLSIGN)
-        $BumpedManifest = $ModManifest -replace '\$Env:APPVEYOR_BUILD_VERSION', "'$Env:APPVEYOR_BUILD_VERSION'"
+        $BumpedManifest = $ModManifest -replace '0.0.9999', $Env:APPVEYOR_BUILD_VERSION
         Remove-Item -Path (".\src\{0}.psd1" -f $CALLSIGN)
         Out-File -FilePath (".\src\{0}.psd1" -f $CALLSIGN) -InputObject $BumpedManifest -NoClobber -Encoding utf8 -Force
     }
@@ -69,7 +69,11 @@ Function Invoke-AppVeyorTests() {
         Details = 'Now running all test found in .\tests\ dir.'
     }
     Add-AppveyorMessage @MsgParams
-    $testresults = Invoke-Pester -Path ".\tests\*" -ExcludeTag 'Disabled' -PassThru
+
+    $srcFiles = Get-ChildItem -Path ".\src\*.psm1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
+    $testFiles = Get-ChildItem -Path ".\tests\*.Tests.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
+    $TestResults = Invoke-Pester -Path $testFiles -CodeCoverage $srcFiles -PassThru
+
     ForEach ($Item in $testresults.TestResult) {
         Switch ($Item.Result) {
             "Passed" {
@@ -118,6 +122,7 @@ Function Invoke-AppVeyorTests() {
         Throw $MsgParams.Message
     }
 
+    return $TestResults.CodeCoverage
 }
 
 Function Invoke-CoverageReport() {
@@ -125,12 +130,15 @@ Function Invoke-CoverageReport() {
     Param(
         [Parameter(Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
-        [String]$RepoToken = $Env:CoverallsToken
+        [String]$RepoToken = $Env:CoverallsToken,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [PSCustomObject]$PesterCoverageReport
     )
 
-    Import-Module '.\src\PSCoverage.psm1' -Verbose -Force
-    $FileMap = New-PesterFileMap -SourceRoot '.\src' -PesterRoot '.\tests'
-    $CoverageReport = New-CoverageReport -PesterFileMap $FileMap -RepoToken $RepoToken
+    Import-Module '.\src\PSCoverage.psd1' -Verbose -Force
+    $CoverageReport = New-CoverageReport -CodeCoverage $PesterCoverageReport -RepoToken $RepoToken
     Write-Host "CoverageReport JSON:" -ForegroundColor Yellow
     $CoverageReport | Out-String | Write-Host
     Publish-CoverageReport -CoverageReport $CoverageReport
@@ -158,7 +166,7 @@ Function Invoke-AppVeyorPSGallery() {
         If ($env:APPVEYOR_REPO_BRANCH -eq 'master') {
             Write-Host "try to publish module" -ForegroundColor Yellow
             Write-Host ("Callsign is: {0}" -f $CALLSIGN) -ForegroundColor Yellow
-            Publish-Module -Name $CALLSIGN -NuGetApiKey $env:NuGetToken -Verbose -Force
+            Publish-Module -Name $CALLSIGN -NuGetApiKey $env:NuGetToken -Verbose -Force -AllowPrerelease
         }
         Else {
             Write-Host "Skip publishing to PS Gallery because we are on $($env:APPVEYOR_REPO_BRANCH) branch." -ForegroundColor Yellow
