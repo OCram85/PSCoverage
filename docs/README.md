@@ -10,7 +10,7 @@ this module was developed.
 ### Installing PSCoverage
 
 The easiest way to install this module is to use the PowerShell built in package management. Therefore use
-`Import-Module 'PowerShellGet'; Install-Module -Name 'PSCoverage' -Repository 'PSGallery'` to get the latest release
+`Import-Module 'PowerShellGet'; Install-Module -Name 'PSCoverage' -Repository 'PSGallery' -AllowPrerelease` to get the latest release
 from [PowerShellGallery Repository](https://powershellgallery.com).
 
 ### Getting Started

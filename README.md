@@ -18,7 +18,7 @@ PowerShellGallery.com (Recommended Way)
 ---------------------------------------
 
 * Make sure you use PowerShell 5.0 or higher with `$PSVersionTable`.
-* Use the builtin PackageManagement and install with: `Install-Module PSCoverage`
+* Use the builtin PackageManagement and install with: `Install-Module PSCoverage -AllowPrerelease`
 * Done. Start exploring the Module with `Import-Module PSCoverage ; Get-Command -Module PSCoverage`
 
 Manual Way

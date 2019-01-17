@@ -11,7 +11,7 @@ LONG DESCRIPTION
 
 INSTALLING PSCoverage
         The easiest way to install this module is to use the PowerShell built in package management. Therefore use
-        `Install-Module 'PSCoverage'` to get the latest release from powershellgallery.com.
+        `Install-Module 'PSCoverage' -AllowPrerelease` to get the latest release from powershellgallery.com.
 
 
 GETTING STARTED
