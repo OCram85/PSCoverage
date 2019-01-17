@@ -1,6 +1,11 @@
-| AppVeyor Overall | AppVeyor Master | AppVeyor Dev | Coveralls.io  | Download |
-| :--------------: | :-------------: | :----------: | :-----------: | :--------:|
-| [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage) | [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/master?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/h0qu0s5xla6gt5x3/branch/dev?svg=true)](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/dev) | [![Coverage Status](https://coveralls.io/repos/github/OCram85/PSCoverage/badge.svg?branch=master)](https://coveralls.io/github/OCram85/PSCoverage?branch=master) | [![Download](https://img.shields.io/badge/powershellgallery-PSCoverage-blue.svg)](https://www.powershellgallery.com/packages/PSCoverage)
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/OCram85/PSCoverage/master.svg?style=plastic "Master Branch Build Status")](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/master)
+[![AppVeyor tests branch](https://img.shields.io/appveyor/tests/OCram85/PSCoverage/master.svg?style=plastic "Pester Tests Results")](https://ci.appveyor.com/project/OCram85/PSCoverage/branch/master/tests)
+[![Coveralls github](https://img.shields.io/coveralls/github/OCram85/PSCoverage.svg?style=plastic "Coveralls.io Coverage Report")](https://coveralls.io/github/OCram85/PSCoverage?branch=master)
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/v/PSCoverage.svg?style=plastic "PowershellGallery Published Version")](https://www.powershellgallery.com/packages/PSCoverage)
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PSCoverage.svg?style=plastic "PowershellGallery Downloads")](https://www.powershellgallery.com/packages/PSCoverage)
+
+![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)
+![forthebadge](http://forthebadge.com/images/badges/for-you.svg)
 
 General
 =======
