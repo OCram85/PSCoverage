@@ -8,7 +8,7 @@ $TestModuleTests = Join-Path -Path $RepoRoot -ChildPath '/resources/TestModule/T
 Describe 'New-CoverageReport' {
     Context 'Basic tests' {
         It 'Test1: Should not throw' {
-            $TestResults = Invoke-Pester -Path $TestModuleTests -CodeCoverage $TestModuleSrc -PassThru
+            $TestResults = Invoke-Pester -Path $TestModuleTests -CodeCoverage $TestModuleSrc -PassThru -Show None
             { $CoverageReport = New-CoverageReport -CodeCoverage $TestResults.CodeCoverage -RepoToken '123456'} | Should -Not -Throw
         }
     }
