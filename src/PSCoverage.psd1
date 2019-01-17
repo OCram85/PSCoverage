@@ -12,10 +12,12 @@
     RootModule = 'PSCoverage.psm1'
 
     # Version number of this module.
-    ModuleVersion = $Env:APPVEYOR_BUILD_VERSION
+    ModuleVersion = '0.0.9999'
 
     # Supported PSEditions
-    # CompatiblePSEditions = @()
+    CompatiblePSEditions = @(
+        'Desktop'
+    )
 
     # ID used to uniquely identify this module
     GUID = '6f02984f-a7cb-4214-8b17-e0dfbfedcc02'
@@ -27,7 +29,7 @@
     CompanyName = ''
 
     # Copyright statement for this module
-    Copyright = '(c) 2017 OCram85. All rights reserved.'
+    Copyright = '(c) 2019 OCram85. All rights reserved.'
 
     # Description of the functionality provided by this module
     Description = 'PSCoverage generates coverage data and sends it to coveralls.io'
