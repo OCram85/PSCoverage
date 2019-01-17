@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-CoverageReport
 
 ## SYNOPSIS
-Creates a CoverallsIO coverage report based on pester data
+Creates a CoverallsIO coverage report based on pester data.
 
 ## SYNTAX
 
@@ -25,7 +25,7 @@ Publish-CoverageReport.
 
 Follow this example to create a valid coverage report:
 
-```
+```powershell
 $srcFiles = Get-ChildItem -Path ".\src\*.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
 $testFiles = Get-ChildItem -Path ".\tests\*.Tests.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
 $TestResults = Invoke-Pester -Path $testFiles -CodeCoverage $srcFiles -PassThru
@@ -35,13 +35,12 @@ $CoverallsIOReport = New-CoverageReport -CodeCoverage $Test.Results.CodeCoverage
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 $srcFiles = Get-ChildItem -Path ".\src\*.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
-```
-
 $testFiles = Get-ChildItem -Path ".\tests\*.Tests.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
 $TestResults = Invoke-Pester -Path $testFiles -CodeCoverage $srcFiles -PassThru
 $CoverallsIOReport = New-CoverageReport -CodeCoverage $TestResults.CodeCoverage -RepoToken '123456' -ModuleRoot $PWD
+```
 
 ## PARAMETERS
 

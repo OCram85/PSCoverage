@@ -34,9 +34,8 @@ Usage
 -----
 
 Navigate to your module/ repository root. Your module structure needs to be like this:
-```
-Eg.:
-----------------------------------------
+
+```console
 ~\src\
       Private\
               Invoke-Foobar.ps1
@@ -49,36 +48,35 @@ Eg.:
         External\
 ~\ModuleManifest.psd1
 ~\ModuleScript.psm1
-----------------------------------------
 ```
 
 **1.** First you need a list of all your src files:
 
-```
+```powershell
 $srcFiles = Get-ChildItem -Path ".\src\*.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
 ```
 
 **2.** Next you need a list with all your pester tests files:
 
-```
+```powershell
 $testFiles = Get-ChildItem -Path ".\tests\*.Tests.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
 ```
 
 **3.** The simplest way to get you code coverage is by creating it with your unit tests. This avoids rerunning all
 the test with PSCoverage:
 
-```
+```powershell
 $TestResults = Invoke-Pester -Path $testFiles -CodeCoverage $srcFiles -PassThru
 ```
 
 **4.** And then passthru the code coverage to create a new report:
 
-```
+```powershell
 $CoverallsIOReport = New-CoverageReport -CodeCoverage $TestResults.CodeCoverage -RepoToken '123456' -ModuleRoot $PWD
 ```
 
 **5.** Finally we can upload the coverage report to coveralls.io:
 
-```
+```powershell
 Publish-CoverageReport -CoverageReport $CoverallsIOReport
 ```
