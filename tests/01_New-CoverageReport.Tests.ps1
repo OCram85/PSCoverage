@@ -1,6 +1,8 @@
 # Test module paths
 $RepoRoot = (Get-Item -Path (Get-GitDirectory) -Force).Parent | Select-Object -ExpandProperty 'FullName'
-$TestModuleSrc = Get-ChildItem -Path "/resources/TestModule/src/*.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
+$TestModuleSrc = Get-ChildItem -Path (
+    Join-Path -Path $RepoRoot -ChildPath "/resources/TestModule/src/*.ps1"
+) -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
 $TestModuleTests = Join-Path -Path $RepoRoot -ChildPath '/resources/TestModule/Tests'
 
 Describe 'New-CoverageReport' {
