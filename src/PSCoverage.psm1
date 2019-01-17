@@ -55,7 +55,7 @@ Function New-CoverageReport () {
         $srcFiles = Get-ChildItem -Path ".\src\*.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
         $testFiles = Get-ChildItem -Path ".\tests\*.Tests.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
         $TestResults = Invoke-Pester -Path $testFiles -CodeCoverage $srcFiles -PassThru
-        $CoverallsIOReport = New-CoverageReport -CodeCoverage $Test.Results.CodeCoverage -RepoToken '123456' -ModuleRoot $PWD
+        $CoverallsIOReport = New-CoverageReport -CodeCoverage $Test.ResultsCodeCoverage -RepoToken '123456' -ModuleRoot $PWD
         ```
     .PARAMETER CodeCoverage
         Provide the Pester CodeCoverage data.
