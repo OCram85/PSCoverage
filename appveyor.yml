@@ -1,10 +1,10 @@
-version: 0.1.{build}
+version: 0.2.{build}
 
-branches:
-  only:
-    - master
-    - dev
-    - debug
+#branches:
+#  only:
+#    - master
+#    - dev
+#    - debug
 
 skip_tags: true
 
