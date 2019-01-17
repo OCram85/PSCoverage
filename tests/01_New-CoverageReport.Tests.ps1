@@ -14,7 +14,7 @@ Describe 'New-CoverageReport' {
         It 'Test2: Source file count should be 3' {
             $TestResults = Invoke-Pester -Path $TestModuleTests -CodeCoverage $TestModuleSrc -PassThru -Show None -ErrorAction SilentlyContinue
             $CoverageReport = New-CoverageReport -CodeCoverage $TestResults.CodeCoverage -RepoToken '123456'
-            $CoverageReport.source_files.Count | Should -Be 3
+            $CoverageReport.source_files.Count | Should -Be 4
         }
     }
 }
