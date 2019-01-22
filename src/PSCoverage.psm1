@@ -1,5 +1,6 @@
 function Get-GitInfo {
     [CmdletBinding()]
+    [OutputType('PSCoverage.Git.Info')]
     param(
         [string]$BranchName
     )
