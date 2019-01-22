@@ -62,4 +62,3 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## RELATED LINKS
 
 [https://github.com/OCram85/PSCoverage](https://github.com/OCram85/PSCoverage)
-
