@@ -13,8 +13,8 @@ function Get-GitInfo {
                 id = $Env:APPVEYOR_REPO_COMMIT
                 author_name = $Env:APPVEYOR_REPO_COMMIT_AUTHOR
                 author_email = $Env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL
-                comitter_name = $Env:APPVEYOR_REPO_COMMIT_AUTHOR
-                comitter_email = $Env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL
+                committer_name = $Env:APPVEYOR_REPO_COMMIT_AUTHOR
+                committer_email = $Env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL
                 message = $Env:APPVEYOR_REPO_COMMIT_MESSAGE
             }
             branch = $Env:APPVEYOR_REPO_BRANCH
