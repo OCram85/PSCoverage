@@ -48,7 +48,7 @@
     RequiredModules = @(
         @{
             ModuleName = 'Pester'
-            ModuleVersion = '4.0.3'
+            ModuleVersion = '4.4.0'
         },
         @{
             ModuleName = 'posh-git'
@@ -68,7 +68,11 @@
     # TypesToProcess = @()
 
     # Format files (.ps1xml) to be loaded when importing this module
-    # FormatsToProcess = @()
+    FormatsToProcess = @(
+        './Formats/PSCoverageGitInfo.ps1xml',
+        './Formats/PSCoverageGitHead.ps1xml',
+        './Formats/PSCoverageReport.ps1xml'
+    )
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
     # NestedModules = @()
@@ -116,13 +120,13 @@
             ProjectUri = 'https://github.com/OCram85/PSCoverage'
 
             # A URL to an icon representing this module.
-            # IconUri = ''
+            IconUri = 'https://raw.githubusercontent.com/OCram85/PSCoverage/master/assets/logo256.png'
 
             # ReleaseNotes of this module
-            # ReleaseNotes = ''
+            ReleaseNotes = 'https://github.com/OCram85/PSCoverage/releases'
 
             # Prerelease string of this module
-            Prerelease = 'alpha1'
+            # Prerelease = 'alpha1'
 
             # Flag to indicate whether the module requires explicit user acceptance for install/update
             # RequireLicenseAcceptance = $false

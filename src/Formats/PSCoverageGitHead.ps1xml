@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>PSCoverage.Git.HEAD</Name>
+            <ViewSelectedBy>
+                <TypeName>PSCoverage.Git.HEAD</TypeName>
+            </ViewSelectedBy>
+            <ListControl>
+                <ListEntries>
+                    <ListEntry>
+                        <ListItems>
+                            <ListItem>
+                                <Label>ID</Label>
+                                <PropertyName>id</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <Label>Author Name</Label>
+                                <PropertyName>author_name</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <Label>Author Email</Label>
+                                <PropertyName>author_email</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <Label>Comitter Name</Label>
+                                <PropertyName>commiter_name</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <Label>Comitter Email</Label>
+                                <PropertyName>commiter_email</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <Label>Message</Label>
+                                <PropertyName>message</PropertyName>
+                            </ListItem>
+                        </ListItems>
+                    </ListEntry>
+                </ListEntries>
+            </ListControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

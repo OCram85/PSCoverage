@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>PSCoverage.Report</Name>
+            <ViewSelectedBy>
+                <TypeName>PSCoverage.Report</TypeName>
+            </ViewSelectedBy>
+            <ListControl>
+                <ListEntries>
+                    <ListEntry>
+                        <ListItems>
+                            <ListItem>
+                                <Label>Repo Token</Label>
+                                <PropertyName>repo_token</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <Label>Commit SHA</Label>
+                                <PropertyName>commit_sha</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <Label>Branch</Label>
+                                <ScriptBlock>$_.git.branch</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>Service Name</Label>
+                                <PropertyName>service_name</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <Label>Source Files Count</Label>
+                                <ScriptBlock>(($_.source_files | Measure-Object).Count)</ScriptBlock>
+                            </ListItem>
+                        </ListItems>
+                    </ListEntry>
+                </ListEntries>
+            </ListControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

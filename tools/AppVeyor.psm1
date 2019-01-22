@@ -140,7 +140,7 @@ Function Invoke-CoverageReport() {
     Import-Module '.\src\PSCoverage.psd1' -Verbose -Force
     $CoverageReport = New-CoverageReport -CodeCoverage $PesterCoverageReport -RepoToken $RepoToken
     Write-Host "CoverageReport JSON:" -ForegroundColor Yellow
-    $CoverageReport | Out-String | Write-Host
+    Write-Verbose ($CoverageReport | Out-String)
     Publish-CoverageReport -CoverageReport $CoverageReport
 }
 

@@ -1,4 +1,4 @@
-version: 0.2.{build}
+version: 1.0.{build}
 
 #branches:
 #  only:
@@ -27,6 +27,8 @@ environment:
     secure: 835qfZIkC9mE7QhkYfOZVAdR8rZhPvxG8BO4CbeaelRQOhlqmaSr8G1DWRJzZ/bS
   CoverallsToken:
     secure: LQIBuPBCk/omFbFhdodb3xo/YU5M4Qd/nlYcBCVUmt9NNU1VJB2IbR8XgJ5b9kMZ
+  TestToken:
+    secure: lTmOvWgFv59+EEiDkjwJAkMAzXA9y3jidUnz+ZqPS2RXG6UHTWLRTkewS9zDnsHJ
 
 build: false
 
