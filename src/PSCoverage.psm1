@@ -42,11 +42,11 @@ function Get-GitInfo {
 function New-CoverageReport {
     <#
     .SYNOPSIS
-        Creates a CoverallsIO coverage report based on pester data
+        Creates a CoverallsIO coverage report based on pester code coverage data.
 
     .DESCRIPTION
-        New-CoverageReport takes pester output and converts it into CoverallsIO readable format.
-        It returns a coveralls.io REST API compatible Object. To upload the coverage report use
+        New-CoverageReport takes pester output and converts it into a CoverallsIO readable format.
+        It returns a coveralls.io REST API compatible object. To upload the coverage report use
         Publish-CoverageReport.
 
         Follow this example to create a valid coverage report:
@@ -61,11 +61,12 @@ function New-CoverageReport {
         Provide the Pester CodeCoverage data.
 
     .PARAMETER RepoToken
-        Coveralls.io provides RepoTokens for grant access to the api upload methods. Therefore take a look at the
-        repository page like: https://coveralls.io/github/<Github UserName>/<Repo Name>.
+        Coveralls.io provides RepoTokens to grant access on the api upload methods. Therefore take a look at the
+        repository page like: https://coveralls.io/github/<Github UserName>/<Repo Name> and copy the topen displayed
+        in the top right corner.
 
     .PARAMETER ModuleRoot
-        You need to provide a full path to the module root directory. New-Coverage report tries to create the
+        You need to provide a full path to the module root directory. New-CoverageReport tries to create the
         relative paths to your src files. CoverallsIO needs them to successfully display the file tree.
         If you run New-CoverageReport from the base dir of you project you don't need to provide an explicit path.
 
