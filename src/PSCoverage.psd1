@@ -123,10 +123,10 @@
             IconUri = 'https://raw.githubusercontent.com/OCram85/PSCoverage/master/assets/logo256.png'
 
             # ReleaseNotes of this module
-            # ReleaseNotes = ''
+            ReleaseNotes = 'https://github.com/OCram85/PSCoverage/releases'
 
             # Prerelease string of this module
-            Prerelease = 'alpha2'
+            # Prerelease = 'alpha1'
 
             # Flag to indicate whether the module requires explicit user acceptance for install/update
             # RequireLicenseAcceptance = $false
