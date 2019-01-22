@@ -48,7 +48,7 @@
     RequiredModules = @(
         @{
             ModuleName = 'Pester'
-            ModuleVersion = '4.0.3'
+            ModuleVersion = '4.4.0'
         },
         @{
             ModuleName = 'posh-git'
@@ -116,13 +116,13 @@
             ProjectUri = 'https://github.com/OCram85/PSCoverage'
 
             # A URL to an icon representing this module.
-            # IconUri = ''
+            IconUri = 'https://raw.githubusercontent.com/OCram85/PSCoverage/master/assets/logo256.png'
 
             # ReleaseNotes of this module
             # ReleaseNotes = ''
 
             # Prerelease string of this module
-            Prerelease = 'alpha1'
+            Prerelease = 'alpha2'
 
             # Flag to indicate whether the module requires explicit user acceptance for install/update
             # RequireLicenseAcceptance = $false
