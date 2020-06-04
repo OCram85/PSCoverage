@@ -29,6 +29,8 @@ environment:
     secure: LQIBuPBCk/omFbFhdodb3xo/YU5M4Qd/nlYcBCVUmt9NNU1VJB2IbR8XgJ5b9kMZ
   TestToken:
     secure: lTmOvWgFv59+EEiDkjwJAkMAzXA9y3jidUnz+ZqPS2RXG6UHTWLRTkewS9zDnsHJ
+  CodeCovToken:
+    secure: KKdzsy/3JetmZtVisZrXnlRjKt6XHkCMgCNn3QnIIOfw1I9iWphkjesTDqAzwX5k
 
 build: false
 
@@ -47,6 +49,11 @@ test_script:
       else {
         Write-Warning "No CoverallsToken found. This build seems to be triggered by a PR. Skipping this step..."
       }
+after_test:
+  - ps: |
+      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+      bash codecov.sh -f "coverage.xml" -t $Env:CodeCovToken
 
 deploy:
   - provider: GitHub
