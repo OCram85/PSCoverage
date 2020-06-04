@@ -14,13 +14,13 @@ image: Visual Studio 2017
 
 # Install pester module and init the Appveyor support.
 install:
-  - ps: Install-PackageProvider -Name NuGet -MinimumVersion '2.8.5.201' -Force -Verbose
-  - ps: Import-PackageProvider NuGet -MinimumVersion '2.8.5.201' -Force
-  - ps: Install-Module -Name 'Pester' -Scope CurrentUser -Force -SkipPublisherCheck -AllowClobber
-  - ps: Update-Module 'Pester'
-  - ps: Install-Module -Name 'posh-git' -Scope CurrentUser -Force -SkipPublisherCheck -AllowClobber
-  - ps: Update-Module 'posh-git'
-  - ps: Import-Module .\tools\AppVeyor.psm1
+  - ps: |
+      Install-PackageProvider -Name NuGet -MinimumVersion '2.8.5.201' -Force -Verbose
+      Import-PackageProvider NuGet -MinimumVersion '2.8.5.201' -Force
+      Install-Module -Name 'Pester' -Scope CurrentUser -RequiredVersion '4.10.1' -Force -SkipPublisherCheck -AllowClobber -Verbose
+      Install-Module -Name 'posh-git' -Scope CurrentUser -RequiredVersion '1.0.0-beta2' -Force -SkipPublisherCheck -AllowClobber -AllowPrerelease
+      Import-Module -Name 'Pester', 'posh-git'
+      Import-Module .\tools\AppVeyor.psm1
 
 environment:
   NuGetToken:
@@ -52,11 +52,11 @@ deploy:
   - provider: GitHub
     auth_token:
       secure: M+bBX5/nKdJB0eViP7xtrLVTwf3vGDUA9N2MMprZp2i+9ZR3CBVcJnSzJWUmalhB
-    artifact: PSCoverage.zip           # upload all NuGet packages to release assets
+    artifact: PSCoverage.zip # upload all NuGet packages to release assets
     draft: false
     prerelease: false
     on:
-      branch: master                # release from master branch only
+      branch: master # release from master branch only
 
 after_deploy:
   - ps: Invoke-AppVeyorPSGallery
