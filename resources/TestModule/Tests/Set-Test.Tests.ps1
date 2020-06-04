@@ -20,7 +20,7 @@ Else {
 Describe 'Set-Test' {
     Context 'Basic tests' {
         It 'Test1: Should work' {
-            Set-Test -Value 5 | Should Be 5
+            Set-Test -Value 5 | Should -Be 5
         }
     }
 }
