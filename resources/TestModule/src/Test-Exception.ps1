@@ -3,5 +3,5 @@ function Test-Exception {
     param (
         [string]$ExceptionMessage
     )
-    Write-Error $ExceptionMessage
+    Write-Error $ExceptionMessage -ErrorAction Stop
 }

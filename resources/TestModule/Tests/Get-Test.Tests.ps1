@@ -20,10 +20,10 @@ Else {
 Describe 'Get-Test' {
     Context 'Basic tests' {
         It 'Test1: Should work' {
-            Get-Test -Value 'ok' | Should Be 'ok'
+            Get-Test -Value 'ok' | Should -Be 'ok'
         }
         It 'Test2: Should not work' {
-            { Get-Test -Value 'ok' }  | should not throw
+            { Get-Test -Value 'ok' } | Should -Not -Throw
         }
     }
 }
