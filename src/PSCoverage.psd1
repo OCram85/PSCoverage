@@ -21,7 +21,7 @@
     CompanyName = ''
 
     # Copyright statement for this module
-    Copyright = '(c) 2019 OCram85. All rights reserved.'
+    Copyright = '(c) 2020 OCram85. All rights reserved.'
 
     # Description of the functionality provided by this module
     Description = 'PSCoverage generates coverage data and sends it to coveralls.io'
