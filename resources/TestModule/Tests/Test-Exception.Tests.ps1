@@ -20,7 +20,7 @@ Else {
 Describe -Tag 'Disabled' 'Test-Exception' {
     Context 'Basic tests' {
         It 'Test1: throw' {
-            { Test-Exception -ExceptionMessage '5' } | Should Throw
+            { Test-Exception -ExceptionMessage '5' } | Should -Throw
         }
     }
 }

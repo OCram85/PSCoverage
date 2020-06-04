@@ -15,7 +15,7 @@ Function Invoke-AppVeyorBumpVersion() {
 
     Write-Host "Listing Env Vars for debugging:" -ForegroundColor Yellow
     # Filter Results to prevent exposing secure vars.
-    Get-ChildItem -Path "Env:*" | Where-Object { $_.name -notmatch "(NuGetToken|CoverallsToken)"} | Sort-Object -Property Name | Format-Table
+    Get-ChildItem -Path "Env:*" | Where-Object { $_.name -notmatch "(NuGetToken|CoverallsToken)" } | Sort-Object -Property Name | Format-Table
 
     Try {
         $ModManifest = Get-Content -Path (".\src\{0}.psd1" -f $CALLSIGN)
@@ -72,7 +72,7 @@ Function Invoke-AppVeyorTests() {
 
     $srcFiles = Get-ChildItem -Path ".\src\*.psm1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
     $testFiles = Get-ChildItem -Path ".\tests\*.Tests.ps1" -Recurse | Sort-Object -Property 'Name' | Select-Object -ExpandProperty 'FullName'
-    $TestResults = Invoke-Pester -Path $testFiles -CodeCoverage $srcFiles -PassThru
+    $TestResults = Invoke-Pester -Path $testFiles -CodeCoverage $srcFiles -PassThru -CodeCoverageOutputFile ".\coverage.xml" -CodeCoverageOutputFileEncoding ascii -CodeCoverageOutputFileFormat JaCoCo
 
     ForEach ($Item in $testresults.TestResult) {
         Switch ($Item.Result) {
