@@ -48,11 +48,11 @@
     RequiredModules = @(
         @{
             ModuleName = 'Pester'
-            ModuleVersion = '4.10.1'
+            RequiredVersion = '4.10.1'
         },
         @{
             ModuleName = 'posh-git'
-            ModuleVersion = '0.7.1'
+            RequiredVersion = '0.7.1'
         }
     )
 
