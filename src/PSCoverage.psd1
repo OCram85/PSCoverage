@@ -52,7 +52,7 @@
         },
         @{
             ModuleName = 'posh-git'
-            RequiredVersion = '0.7.1'
+            RequiredVersion = '0.7.3'
         }
     )
 
