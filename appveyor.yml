@@ -1,5 +1,4 @@
 version: 1.2.{build}
-
 #branches:
 #  only:
 #    - master
@@ -17,7 +16,7 @@ install:
   - ps: |
       Install-PackageProvider -Name NuGet -MinimumVersion '2.8.5.201' -Force -Verbose
       Import-PackageProvider NuGet -MinimumVersion '2.8.5.201' -Force
-      Install-Module -Name 'Pester' -Scope CurrentUser -RequiredVersion '4.10.1' -Force -SkipPublisherCheck -AllowClobber -Verbose
+      Install-Module -Name 'Pester' -Scope CurrentUser -RequiredVersion '4.10.1' -Force -SkipPublisherCheck -AllowClobber -Verbos
       Install-Module -Name 'posh-git' -Scope CurrentUser -RequiredVersion '0.7.3' -Force -SkipPublisherCheck -AllowClobber -AllowPrerelease
       Import-Module -Name 'Pester', 'posh-git'
       Import-Module .\tools\AppVeyor.psm1
