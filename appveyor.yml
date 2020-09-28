@@ -1,5 +1,4 @@
-version: 1.1.{build}
-
+version: 1.2.{build}
 #branches:
 #  only:
 #    - master
@@ -17,8 +16,8 @@ install:
   - ps: |
       Install-PackageProvider -Name NuGet -MinimumVersion '2.8.5.201' -Force -Verbose
       Import-PackageProvider NuGet -MinimumVersion '2.8.5.201' -Force
-      Install-Module -Name 'Pester' -Scope CurrentUser -RequiredVersion '4.10.1' -Force -SkipPublisherCheck -AllowClobber -Verbose
-      Install-Module -Name 'posh-git' -Scope CurrentUser -RequiredVersion '1.0.0-beta2' -Force -SkipPublisherCheck -AllowClobber -AllowPrerelease
+      Install-Module -Name 'Pester' -Scope CurrentUser -RequiredVersion '4.10.1' -Force -SkipPublisherCheck -AllowClobber -Verbos
+      Install-Module -Name 'posh-git' -Scope CurrentUser -RequiredVersion '0.7.3' -Force -SkipPublisherCheck -AllowClobber -AllowPrerelease
       Import-Module -Name 'Pester', 'posh-git'
       Import-Module .\tools\AppVeyor.psm1
 
@@ -51,7 +50,8 @@ test_script:
       }
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "coverage.xml" -t $Env:CodeCovToken
+      Invoke-Expression "bash codecov.sh -f 'coverage.xml' -t $Env:CodeCovToken" 2>&1
+
 #after_test:
 #  - ps: |
 #      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
